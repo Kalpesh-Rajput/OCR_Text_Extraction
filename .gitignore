@@ -1,0 +1,62 @@
+# -----------------------------
+# Python cache & compiled files
+# -----------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+
+# -----------------------------
+# Environment folders
+# -----------------------------
+env/
+venv/
+ocrenv/
+*.env
+*.venv
+
+# -----------------------------
+# VS Code settings
+# -----------------------------
+.vscode/
+*.code-workspace
+
+# -----------------------------
+# System / OS files
+# -----------------------------
+.DS_Store
+Thumbs.db
+
+# -----------------------------
+# Logs and temp files
+# -----------------------------
+*.log
+*.tmp
+*.temp
+
+# -----------------------------
+# Jupyter Notebook checkpoints
+# -----------------------------
+.ipynb_checkpoints/
+
+# -----------------------------
+# Streamlit specific
+# -----------------------------
+.streamlit/
+st.cache/
+st_cache/
+
+
+# -----------------------------
+# Paddle / OCR caches (if any)
+# -----------------------------
+~/.paddle/
+~/.paddlex/
+paddle_cache/
+
+# -----------------------------
+# Backup files
+# -----------------------------
+*~
+*.bak
+*.swp
+*.swo
