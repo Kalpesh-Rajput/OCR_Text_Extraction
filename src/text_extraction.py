@@ -1,38 +1,64 @@
+# import re
+
+# class TextExtractor:
+#     def __init__(self):
+#         # Strict target pattern
+#         self.pattern = r"[A-Za-z0-9\-]{6,}_1_[A-Za-z0-9\-]{2,}"
+
+#     def _correct_common_errors(self, text):
+#         corrections = {
+#             "l": "1",
+#             "I": "1",
+#             "O": "0",
+#             "S": "5"
+#         }
+#         for bad, good in corrections.items():
+#             text = text.replace(bad + "_1_", good + "_1_")
+#         return text
+
+#     def find_target_line(self, ocr_output):
+#         best_match = None
+#         best_conf = 0.0
+
+#         for item in ocr_output:
+#             text = self._correct_common_errors(item["text"])
+#             conf = item["confidence"]
+
+#             match = re.search(self.pattern, text)
+#             if match and conf > best_conf:
+#                 best_match = {
+#                     "text": match.group(0),
+#                     "confidence": conf
+#                 }
+#                 best_conf = conf
+
+#         return best_match
+
+#########################################################################################################################
 import re
 
 class TextExtractor:
     def __init__(self):
-        # Strict target pattern
-        self.pattern = r"[A-Za-z0-9\-]{6,}_1_[A-Za-z0-9\-]{2,}"
-
-    def _correct_common_errors(self, text):
-        corrections = {
-            "l": "1",
-            "I": "1",
-            "O": "0",
-            "S": "5"
-        }
-        for bad, good in corrections.items():
-            text = text.replace(bad + "_1_", good + "_1_")
-        return text
+        # pattern variations
+        self.patterns = [
+            r"_1_", r"1_", r"_1",
+            r"[_\-\. ]1[_\-\. ]",   # fuzzy
+            r"[_\-\. ][Il][_\-\. ]", # _l_ or _I_
+        ]
 
     def find_target_line(self, ocr_output):
-        best_match = None
-        best_conf = 0.0
+        best = None
 
         for item in ocr_output:
-            text = self._correct_common_errors(item["text"])
-            conf = item["confidence"]
+            text = item["text"]
 
-            match = re.search(self.pattern, text)
-            if match and conf > best_conf:
-                best_match = {
-                    "text": match.group(0),
-                    "confidence": conf
-                }
-                best_conf = conf
+            for pat in self.patterns:
+                if re.search(pat, text):
+                    if (best is None) or (item["confidence"] > best["confidence"]):
+                        best = item
 
-        return best_match
+        return best
+
 
 
 # testing
