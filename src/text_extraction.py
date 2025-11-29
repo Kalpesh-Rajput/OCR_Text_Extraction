@@ -2,37 +2,38 @@ import re
 
 class TextExtractor:
     def __init__(self):
-        # Pattern required by assignment: something_1_something
-        self.pattern = r"[A-Za-z0-9\-]*_1_[A-Za-z0-9\-]*"
+        # Strict target pattern
+        self.pattern = r"[A-Za-z0-9\-]{6,}_1_[A-Za-z0-9\-]{2,}"
+
+    def _correct_common_errors(self, text):
+        corrections = {
+            "l": "1",
+            "I": "1",
+            "O": "0",
+            "S": "5"
+        }
+        for bad, good in corrections.items():
+            text = text.replace(bad + "_1_", good + "_1_")
+        return text
 
     def find_target_line(self, ocr_output):
-        """
-        Input: list of OCR results like:
-            [{ "text": "...", "confidence": 0.89 }, ... ]
-
-        Returns:
-            { "text": found_text, "confidence": confidence } or None
-        """
-
         best_match = None
-        best_confidence = 0.0
+        best_conf = 0.0
 
         for item in ocr_output:
-            text = item["text"]
+            text = self._correct_common_errors(item["text"])
             conf = item["confidence"]
 
             match = re.search(self.pattern, text)
-
-            if match:
-                # Pick the line with the highest confidence
-                if conf > best_confidence:
-                    best_confidence = conf
-                    best_match = {
-                        "text": match.group(0),
-                        "confidence": conf
-                    }
+            if match and conf > best_conf:
+                best_match = {
+                    "text": match.group(0),
+                    "confidence": conf
+                }
+                best_conf = conf
 
         return best_match
+
 
 # testing
 # if __name__ == "__main__":
