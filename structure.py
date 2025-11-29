@@ -2,7 +2,7 @@ import os
 
 
 folders = {
-    "src": ["preprocessing.py", "ocr_engine.py", "text_extraction.py", "utils.py"],
+    "src": ["preprocessing.py", "ocr_engine.py", "text_extraction.py", "utils.py","pipeline.py"],
     "notebooks": [],
     "tests": [],
     "results": []
