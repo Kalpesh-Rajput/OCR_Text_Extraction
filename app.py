@@ -7,7 +7,7 @@ from src.pipeline import OCRPipeline
 pipeline = OCRPipeline()
 
 st.set_page_config(page_title="OCR Extractor", layout="wide")
-st.title("OCR `_1_` Extractor")
+st.title("🔍 OCR Text Extractor")
 
 uploaded = st.file_uploader("Upload image", type=["jpg","jpeg","png"])
 if uploaded:
