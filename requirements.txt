@@ -1,4 +1,32 @@
-opencv-python
-streamlit
-numpy
+
+# pillow
+# imutils
+# scikit-image
+# python-Levenshtein
+
+# opencv-python
+# numpy
+# easyocr
+# pytesseract
+# pillow
+# streamlit
+# python-doctr
+# torchvision
+# torch
+# numpy
+rapidfuzz
 easyocr
+pytesseract
+opencv-python
+numpy
+scikit-image
+scipy
+Pillow
+imutils
+streamlit
+ultralytics
+matplotlib
+tqdm
+roboflow
+# conda env remove -n ocrenv
+
